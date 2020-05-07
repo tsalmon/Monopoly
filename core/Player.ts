@@ -23,6 +23,10 @@ export class Player {
     this.insolvency = false;
   }
 
+  getName(): string {
+    return this.name;
+  }
+
   inJail(): boolean {
     return this.jail;
   }

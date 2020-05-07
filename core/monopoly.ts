@@ -221,13 +221,15 @@ class Monopoly {
   dice1: number;
   dice2: number;
 
-  constructor(cases: Case[], players: Player[]){
+  constructor(cases: Case[]){
     this.cases = cases;
-    this.players = players;
+    this.players = [];
     this.nextPlayer = -1;
     this.dice1 = 0;
     this.dice2 = 0;
   }
+
+
 
   dice(){
     return Math.ceil(Math.random() * 6);
@@ -254,4 +256,4 @@ class Monopoly {
   }
 }
 
-export const Game = new Monopoly(cases, players);
+export const Game = new Monopoly(cases);

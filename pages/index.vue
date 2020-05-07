@@ -73,25 +73,25 @@
   </div>
 </div>
 </template>
-
 <script lang="ts">
 import Vue from 'vue'
 import { mapGetters } from "vuex";
 import Component from 'vue-class-component';
 import {
-  State,
-  Getter,
   Action,
+  Getter,
   Mutation,
-  namespace
+  namespace,
+  State,
 } from 'vuex-class'
-import Community from '@/components/Community';
-import Compagny from '@/components/Compagny';
-import Corner from '@/components/Corner';
-import Luck from '@/components/Luck';
-import Property from '@/components/Property';
-import Station from '@/components/Station';
-import Tax from '@/components/Tax';
+import Community from '@/components/Community.vue';
+import Compagny from '@/components/Compagny.vue';
+import Corner from '@/components/Corner.vue';
+import Luck from '@/components/Luck.vue';
+import Property from '@/components/Property.vue';
+import Station from '@/components/Station.vue';
+import Tax from '@/components/Tax.vue';
+import { Player } from '@/core/Player';
 
 const mp = namespace('monopoly');
 
@@ -106,11 +106,11 @@ const mp = namespace('monopoly');
     Tax,
 	},
   filters: {
-    displayName(player) {
+    displayName(player: Player) {
       if(!player) {
         return 'no player'
       }
-      return player.name;
+      return player.getName();
     }
   }
 })
