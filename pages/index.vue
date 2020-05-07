@@ -37,7 +37,9 @@
         <Property class="column is-full" :properties="getCase(11)" />
       </div>
     </div>
-    <div class="column is-four-fifths is-gapless">center</div>
+    <div class="column is-four-fifths is-gapless">
+      <Control />
+    </div>
     <div class="column is-gapless">
       <div class="columns is-gapless is-multiline">
         <Property class="column is-full" :properties="getCase(30)" />
@@ -91,6 +93,7 @@ import Luck from '@/components/Luck.vue';
 import Property from '@/components/Property.vue';
 import Station from '@/components/Station.vue';
 import Tax from '@/components/Tax.vue';
+import Control from '@/components/Control.vue';
 import { Player } from '@/core/Player';
 
 const mp = namespace('monopoly');
@@ -100,6 +103,7 @@ const mp = namespace('monopoly');
     Community,
     Compagny,
     Corner,
+    Control,
     Luck,
     Property,
     Station,

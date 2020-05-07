@@ -12,6 +12,7 @@ import { GoToJail } from './GoToJail';
 import { Park } from './Park';
 import { Company } from './Company';
 import { LuxTax } from './LuxTax';
+import { GameState } from './GameState';
 
 const cases: Case[] = [
   new Start(),
@@ -209,19 +210,23 @@ const cases: Case[] = [
   }),
 ]
 
+/*
 const players: Player[] = [
   new Player('Joueur', false),
   new Player('bot1', true),
 ]
+*/
 
 class Monopoly {
-  cases: Case[];
-  players: Player[];
-  nextPlayer: number;
-  dice1: number;
-  dice2: number;
+  private status: GameState;
+  private cases: Case[];
+  private players: Player[];
+  private nextPlayer: number;
+  private dice1: number;
+  private dice2: number;
 
-  constructor(cases: Case[]){
+  constructor(cases: Case[]) {
+    this.status = GameState.INIT;
     this.cases = cases;
     this.players = [];
     this.nextPlayer = -1;
@@ -229,9 +234,15 @@ class Monopoly {
     this.dice2 = 0;
   }
 
+  getStatus() {
+    return this.status;
+  }
 
+  setStatus(status: GameState) {
+    this.status = status;
+  }
 
-  dice(){
+  dice() {
     return Math.ceil(Math.random() * 6);
   }
 
@@ -245,6 +256,10 @@ class Monopoly {
 
   getPlayer(): Player {
     return this.players[this.nextPlayer];
+  }
+
+  setPlayers(players: Player[]) {
+    this.players = players;
   }
 
   test() {
