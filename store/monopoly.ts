@@ -1,65 +1,96 @@
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
-import { Game } from '../core/monopoly';
+//import { Game } from '../core/monopoly';
 import { Player } from '../core/Player';
 import { Case } from '../core/Case';
+import { MonopolyCases } from "@/data/MonopolyCases";
 import { GameState } from '~/core/GameState';
 
 @Module({ namespaced: true, name: 'Monopoly' })
 export default class Monopoly extends VuexModule {
-  private game = Game;
-  currentPlayer: Player | null = null;
+  private cases: Case[] = MonopolyCases;
+  private player: number | null = null;
+  private status: GameState  = GameState.INIT;
+  private players: Player[] = [];
+  dice1: number | null = null;
+  dice2: number | null = null;
 
-  get getStatut() {
-    return () => {
-      return this.game.getStatus();
+  get getStatut(): Function {
+    return (): GameState => {
+      return this.status;
     }
   }
 
   get getCase(): Function {
     return (caseIndex: number): Case => {
-      return this.game.getCase(caseIndex);
+      return this.cases[caseIndex];
     };
   }
-  
-  @Action
-  next() {
-    console.log('next turn');
-    this.game.setNextPlayer();
-    this.setCurrentPlayer();
+
+  get currentPlayer(): Player {
+    if(this.player !== null) {
+      return this.players[this.player];
+    }
+
+    throw 'player not defined';
+  }
+
+  getCaseById(caseIndex: number) {
+    if(caseIndex < 0) {
+      throw 'case lower than zero'
+    }
+    if(caseIndex > this.cases.length){
+      throw 'case out of array'
+    }
+
+    return this.cases[caseIndex];
   }
 
 
-  getCaseById(caseIndex: number) {
-    return this.game.getCase(caseIndex);
+  @Mutation
+  playDice1() {
+    if(this.dice1){
+      return;
+    }
+
+    this.dice1 = Math.floor(Math.random() * 6 + 1);
+  }
+
+  @Mutation
+  playDice2() {
+    if(this.dice2){
+      return;
+    }
+
+    this.dice2 = Math.floor(Math.random() * 6 + 1);
   }
 
   @Mutation
   setStatus(status: GameState) {
-    this.game.setStatus(status);
+    this.status = status;
   }
 
   @Mutation
   setNextPlayer() {
-    this.game.setNextPlayer();
+    if(this.player === null){
+      this.player = 0;
+    } else if (this.player >= this.players.length) {
+      this.player = 0;
+    } else {
+      this.player++;      
+    } 
+    console.log('setNextPlayer', this.player);
   }
-
 
   @Mutation
-  setCurrentPlayer() {
-    this.currentPlayer = this.game.getPlayer();
+  addPlayers(nbPlayers: number, isBot: boolean) {
+    console.log('addPlayers');
+    for(let i = 0; i < nbPlayers; i++) {
+      this.players.push(new Player(`player ${i+1}`, isBot));
+    }
   }
 
-  @Mutation 
-  setPlayers(nbPlayers: number, isBot: boolean) {
-    console.log('set player');
-    /*
-    const players: Player[] = [];
-
-    for(let i = 0; i < nbPlayers; i++) {
-      players.push(new Player(`player ${i+1}`, isBot));
-    }
-
-    this.game.setPlayers(players);
-    */
-  } 
+  @Mutation
+  resetPlayer() {
+    this.players = [];
+  }
 }

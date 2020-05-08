@@ -1,5 +1,6 @@
 <template>
 <div>
+  <Modal />
   <!-- top -->
   <div class="columns is-gapless is-marginless">
     <!-- TOP West corner -->
@@ -95,6 +96,7 @@ import Station from '@/components/Station.vue';
 import Tax from '@/components/Tax.vue';
 import Control from '@/components/Control.vue';
 import { Player } from '@/core/Player';
+import Modal from '@/components/controls/Modal.vue';
 
 const mp = namespace('monopoly');
 
@@ -102,9 +104,10 @@ const mp = namespace('monopoly');
 	components: {
     Community,
     Compagny,
-    Corner,
     Control,
+    Corner,
     Luck,
+    Modal,
     Property,
     Station,
     Tax,
