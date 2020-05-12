@@ -1,24 +1,34 @@
 <template>
-    <section class="info-tiles">
-      <div class="tile is-ancestor has-text-centered">
-        <div class="tile is-parent">
-          <a class="tile is-child box" @click="playDice(1)">
-            <p v-if="dice1 === null" class="title" >Lancer le dé</p>
-            <img v-else :src="`/dice_${dice1}.png`" />
-          </a>
-        </div>
-        <div class="tile is-parent">
-          <a class="tile is-child box" @click="playDice(2)">
-            <p v-if="dice2 === null" class="title" >Lancer le dé</p>
-            <img v-else :src="`/dice_${dice2}.png`" />
-          </a>
-        </div>
-      </div>
-      <footer>
-        <a :disabled="dice1 === null || dice2 === null" class="button is-fullwidth" @click="play"> 
-          OK
+  <section class="info-tiles">
+    <div class="tile is-ancestor has-text-centered">
+      <div class="tile is-parent">
+        <a class="tile is-child box" @click="playDice(1)">
+          <p v-if="dice1 === null" class="title" >Lancer le dé</p>
+          <img v-else :src="`/dice_${dice1}.png`" />
         </a>
-      </footer>
+      </div>
+      <div class="tile is-parent">
+        <a class="tile is-child box" @click="playDice(2)">
+          <p v-if="dice2 === null" class="title" >Lancer le dé</p>
+          <img v-else :src="`/dice_${dice2}.png`" />
+        </a>
+      </div>
+    </div>
+
+    <article v-if="dice1 == dice2 && dice1 !== null" class="message is-info">
+      <div class="message-header">
+        <p>Double !</p>
+      </div>
+      <div class="message-body">
+        Vous pouvez jouez deux coups !
+      </div>
+    </article>
+
+    <footer>
+      <a :disabled="dice1 === null || dice2 === null" class="button is-fullwidth" @click="play"> 
+        OK
+      </a>
+    </footer>
   </section>
 </template>
 <script lang="ts">
@@ -46,6 +56,10 @@ export default class Dices extends Vue {
   }
 
   play() {
+    if(this.dice1 === null || this.dice2 === null){
+      return ;
+    }
+
     this.monopoly.execute(null);
   }
 }

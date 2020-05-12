@@ -7,6 +7,9 @@ export interface RealEstate extends Case {
   owner: Player | null;
   mortgage: number;
 
+  isProperty(): boolean;
+  isStation(): boolean;
+  isCompany(): boolean;
   getCost(player: Player): number | null;
   buy(player: Player): boolean;
 }

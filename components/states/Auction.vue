@@ -109,11 +109,6 @@ const mp = namespace('monopoly');
     PropertyCase,
     StationCase,
   },
-  filters: {
-    devise: (price: number) => {
-      return `${price} €`;
-    }
-  }
 })
 export default class Buy extends Vue {
   @mp.Getter getState!: Function;

@@ -52,7 +52,7 @@ export default class MonopolyCardState implements GameState {
     }
   }
 
-  execute(monopoly: MonopolyContext, options: GameOperation) {
+  execute(monopoly: MonopolyContext) {
     const { 
       getLuckCard,
       goTo,

@@ -30,6 +30,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/devise.ts',
   ],
   /*
   ** Nuxt.js dev-modules
@@ -45,14 +46,13 @@ module.exports = {
     '@nuxtjs/bulma',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/style-resources',
     'nuxt-fontawesome'
   ],
   fontawesome: {
     imports: [
       {
         set: '@fortawesome/free-solid-svg-icons', // Solid icons
-        icons: ['faCheckSquare']
+        icons: ['faCheckSquare', 'faMoneyBillWave']
       },
       {
         set: '@fortawesome/free-brands-svg-icons', // Brand icons

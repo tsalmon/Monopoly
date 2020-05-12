@@ -207,4 +207,8 @@ export class Property implements RealEstate {
   toString(): string {
     return this.name;
   }
+
+  isProperty = () => true;
+  isCompany = () => false;
+  isStation = () => false;
 }

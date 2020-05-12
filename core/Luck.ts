@@ -74,7 +74,7 @@ export class Luck implements CaseCard {
       gain: (player: Player) => 1500,
     }, {
       message: ['Rendez vous à la rue de la Paix'],
-      goTo: 39,
+      goTo: 38,
     }, {
       message: ['Amende pour ivresse, 200 €'],
       loose: (player: Player) => 200,
@@ -106,7 +106,6 @@ export class Luck implements CaseCard {
 
   getRandomCard(): Card {
     return this.cards[Math.ceil(Math.random() * this.cards.length)]; 
-    //return this.cards[14];
   }
 
   execute(player: Player): DisplayObject {

@@ -8,7 +8,7 @@ export class IncomeTax implements TaxCase {
   execute(player: Player): DisplayObject {
     return {
       title: 'Taxe sur le revenu',
-      message: [`Vous devez payer la taxe.`, `${ this.cost }`],
+      message: ['Vous devez payer la taxe.'],
       cost: this.cost,
     };
   }

@@ -1,15 +1,18 @@
 <template>
-<div class="container field has-addons has-addons-centered">
+<div class="container control">
   <InitGame v-if="isInit()" />
-  <PlayingGame v-if="isPlaying()" />
-  <section class="section" v-if="isFinished()">
+  <section class="section" v-else-if="isFinished()">
     <div class="container">
       <h1 class="title">Jeu fini</h1>
       <h2 class="subtitle">
-        A simple container to divide your page into <strong>sections</strong>, like the one you're currently reading
+        {{ monopoly.getWinner().getName() }} a gagné ! 
       </h2>
     </div>
   </section>
+  <PlayingGame v-else-if="isPlaying()" />
+  <div v-else>
+    Erreur
+  </div>
 </div>
 </template>
 <script lang="ts">
@@ -19,8 +22,9 @@ import { namespace } from 'vuex-class'
 import { GameState } from '@/core/GameState';
 import InitGame from '@/components/controls/InitGame.vue';
 import PlayingGame from '@/components/controls/PlayingGame.vue';
-import MonopolyInitState from '../core/MonopolyInitState';
-import MonopolyFinishedState from '../core/MonopolyFinishedState';
+import MonopolyInitState from '@/core/MonopolyInitState';
+import MonopolyFinishedState from '@/core/MonopolyFinishedState';
+import MonopolyContext from '@/core/MonopolyContext';
 
 const mp = namespace('monopoly');
 
@@ -32,13 +36,14 @@ const mp = namespace('monopoly');
 })
 export default class Control extends Vue {
   @mp.Getter getState!: Function;
+  @mp.State(state => state.monopoly) monopoly!: MonopolyContext;
 
   isInit() {
     return this.getState() instanceof MonopolyInitState;
   }
 
   isFinished() {
-    return this.getState() instanceof MonopolyFinishedState;
+    return this.monopoly.gameFinished();
   }
 
   isPlaying() {
@@ -46,4 +51,8 @@ export default class Control extends Vue {
   }
 }
 </script>
-<style scoped></style>
+<style scoped>
+.control {
+  padding: 70px;
+}
+</style>

@@ -1,6 +1,5 @@
 <template>
   <section>
-    {{ this.getState().player.inJail() }}
     <Jail v-if="jailState()" />
     <Dices v-else-if="diceState()" />
     <Buy v-else-if="buyState()" />

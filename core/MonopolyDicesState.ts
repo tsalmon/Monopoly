@@ -56,7 +56,7 @@ export default class MonopolyDicesState implements GameState {
     }
 
     //POSITION AND START CASH
-    let position: number = 29;//this.player.getPosition() + this.dice1 + this.dice2;
+    let position: number = this.player.getPosition() + this.dice1 + this.dice2;
     const nbCases = monopoly.getNbCases();
 
     if(position >= nbCases) {

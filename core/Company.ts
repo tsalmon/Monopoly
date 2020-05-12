@@ -67,4 +67,8 @@ export class Company implements RealEstate {
       cost: this.getCost(player),
     };
   }
+
+  isProperty = () => false;
+  isCompany = () => true;
+  isStation = () => false;
 }

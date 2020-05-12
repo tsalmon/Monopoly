@@ -12,19 +12,13 @@
         :addCallback="watchPlayer"
         :removeCallback="watchPlayer"
       />
-      <FieldNumber
-        placeholder="Nombre de bots"
-        :minValue="0"
-        :maxValue="3"
-        :addCallback="watchBot"
-        :removeCallback="watchBot"
-      />
-      <div class="field">
-        <div class="control">
-          <a class="button" @click="start" :disabled="nbPlayers + nbBots < 2">
-            Commencer
-          </a>
-        </div>
+    </div>
+    <hr />
+    <div class="container">
+      <div>
+        <a class="button" @click="start" :disabled="nbPlayers + nbBots < 2">
+          Commencer
+        </a>
       </div>
     </div>
   </section>
@@ -53,6 +47,9 @@ export default class InitGame extends Vue {
   nbBots: number = 0;
 
   start() {
+    if(this.nbPlayers + this.nbBots < 2){
+      return;
+    }
     this.addPlayers(this.nbPlayers, this.nbBots);
   }
 

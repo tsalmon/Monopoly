@@ -92,4 +92,8 @@ export class Station implements RealEstate {
       cost: this.getCost(player),
     };
   }
+
+  isProperty = () => false;
+  isCompany = () => false;
+  isStation = () => true;
 }

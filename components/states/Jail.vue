@@ -63,11 +63,6 @@ const mp = namespace('monopoly');
     PropertyCase,
     StationCase,
   },
-  filters: {
-    devise: (price: number) => {
-      return `${price} €`;
-    }
-  }
 })
 export default class Jail extends Vue {
   @mp.Getter getState!: Function;

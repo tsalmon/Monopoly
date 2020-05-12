@@ -111,6 +111,14 @@ export class Player {
     this.properties.push(property);
   }
 
+  getCompagnies(): Company[] {
+    return this.compagnies;
+  }
+
+  getStations(): Station[] {
+    return this.stations;
+  }
+
   getProperties(): Property[] {
     return this.properties;
   }
@@ -207,7 +215,6 @@ export class Player {
       this.nbDEqualsDice = 0;
     }
   }
-
 
   inJail(): boolean {
     return this.jail;

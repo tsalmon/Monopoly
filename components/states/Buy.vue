@@ -9,7 +9,6 @@
           <img v-if="isStation()" src="/station.png" alt="station image">
           <img v-else src="/compagny.png" alt="compagny image">
         </figure>
-
       </div>
       <div class="media-content">
         <p class="title is-4">{{ title }}</p>
@@ -19,52 +18,10 @@
 
     <div v-if="isProperty()" class="content">
       <div class="box">
-        <table class="table is-striped">
-          <tbody>
-            <tr>
-              <td>Prix d'une maison</td>
-              <td>{{ currentCase.housePrice | devise }}</td>
-            </tr>
-            <tr>
-              <td>Prix d'un hôtel</td>
-              <td>{{ currentCase.hostelPrice | devise }}</td>
-            </tr>
-            <tr>
-              <td>Hypothèque</td>
-              <td>{{ currentCase.mortgage | devise }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <ArrayPrice :property="currentCase" />
       </div>
       <div class="box">
-        <table class="table is-striped">
-          <tbody>
-            <tr>
-              <td>Location avec terrain</td>
-              <td>{{ currentCase.housePrice | devise }}</td>
-            </tr>
-            <tr>
-              <td>Location avec une maison</td>
-              <td>{{ currentCase.rents.with1House | devise }}</td>
-            </tr>
-            <tr>
-              <td>Location avec deux maisons</td>
-              <td>{{ currentCase.rents.with2Houses | devise }}</td>
-            </tr>
-            <tr>
-              <td>Location avec trois maisons</td>
-              <td>{{ currentCase.rents.with3Houses | devise }}</td>
-            </tr>
-            <tr>
-              <td>Location avec quatre maisons</td>
-              <td>{{ currentCase.rents.with4Houses | devise }}</td>
-            </tr>
-            <tr>
-              <td>Location avec un hôtel</td>
-              <td>{{ currentCase.rents.withHotel | devise }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <ArrayLocation :property="currentCase" />
       </div>
     </div>
 
@@ -73,7 +30,6 @@
 
     <div v-if="isCompany()" class="content">
     </div>
-
   </div>
   <footer class="card-footer">
     <a href="#" class="card-footer-item" @click="play(true)">Acheter ({{ price | devise }})</a>
@@ -85,16 +41,20 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import { State, namespace } from 'vuex-class'
-import { GameState } from '@/core/GameState';
-import MonopolyContext from '@/core/MonopolyContext';
-import { Station as StationType } from '@/core/Station';
-import { Company as CompanyType } from '@/core/Company';
-import { Property as PropertyType } from '@/core/Property';
+
 import StationCase from '@/components/Station.vue';
 import CompagnyCase from '@/components/Compagny.vue';
 import PropertyCase from '@/components/Property.vue';
+import ArrayLocation from '@/components/property/ArrayLocation.vue';
+import ArrayPrice from '@/components/property/ArrayPrice.vue';
+
+import { GameState } from '@/core/GameState';
+import MonopolyContext from '@/core/MonopolyContext';
 import { DisplayObject } from '@/core/DisplayObject';
 import { Case } from '@/core/Case';
+import { Station as StationType } from '@/core/Station';
+import { Company as CompanyType } from '@/core/Company';
+import { Property as PropertyType } from '@/core/Property';
 
 const mp = namespace('monopoly');
 
@@ -103,12 +63,9 @@ const mp = namespace('monopoly');
     CompagnyCase,
     PropertyCase,
     StationCase,
+    ArrayLocation,
+    ArrayPrice,
   },
-  filters: {
-    devise: (price: number) => {
-      return `${price} €`;
-    }
-  }
 })
 export default class Buy extends Vue {
   @mp.Getter getState!: Function;

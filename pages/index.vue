@@ -1,9 +1,11 @@
 <template>
+
 <div>
-  <pre>
-    {{ getState().displayCLI() }}
-  </pre>
-  <Modal />
+  <transition name="fade">
+    <div v-if="animate" class="notification is-primary">
+      Au tour de {{ currentPlayer.name }} 
+    </div>
+  </transition>
   <!-- top -->
   <div class="columns is-gapless is-marginless">
     <!-- TOP West corner -->
@@ -90,6 +92,7 @@ import {
   namespace,
   State,
 } from 'vuex-class'
+
 import Community from '@/components/Community.vue';
 import Compagny from '@/components/Compagny.vue';
 import Corner from '@/components/Corner.vue';
@@ -100,6 +103,7 @@ import Tax from '@/components/Tax.vue';
 import Control from '@/components/Control.vue';
 import { Player } from '@/core/Player';
 import Modal from '@/components/controls/Modal.vue';
+import { Watch } from 'vue-property-decorator';
 
 const mp = namespace('monopoly');
 
@@ -115,20 +119,24 @@ const mp = namespace('monopoly');
     Station,
     Tax,
 	},
-  filters: {
-    displayName(player: Player) {
-      if(!player) {
-        return 'no player'
-      }
-      return player.getName();
-    }
-  }
 })
 export default class Index extends Vue {
-  @mp.State player!: string;
+  @mp.Getter currentPlayer!: Player;
   @mp.Mutation finish!: Function;
   @mp.Getter getCase!: Function;
   @mp.Getter getState!: Function;
+  animate: boolean = false
+
+  @Watch('currentPlayer')
+  currentPlayerChange(newPlayer: Player, oldPlayer: Player) {
+    if(newPlayer === oldPlayer){
+      return;
+    }
+    this.animate = true;
+    setTimeout(() => { 
+      this.animate = false;  
+    }, 2000);
+  }
 }
 </script>
 <style lang="scss">
@@ -142,5 +150,20 @@ export default class Index extends Vue {
 
 .is-gapless {
   margin-bottom: 10px;
+}
+
+.notification {
+  width: 300px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  z-index: 1000;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>
