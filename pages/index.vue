@@ -1,5 +1,8 @@
 <template>
 <div>
+  <pre>
+    {{ getState().displayCLI() }}
+  </pre>
   <Modal />
   <!-- top -->
   <div class="columns is-gapless is-marginless">
@@ -125,13 +128,13 @@ export default class Index extends Vue {
   @mp.State player!: string;
   @mp.Mutation finish!: Function;
   @mp.Getter getCase!: Function;
+  @mp.Getter getState!: Function;
 }
 </script>
-
 <style lang="scss">
 .column {
   display:table-row;
-} 
+}
 .columns {
   display: table;
   border-collapse: collapse;

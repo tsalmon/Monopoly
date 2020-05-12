@@ -46,7 +46,6 @@ const mp = namespace('monopoly');
 })
 export default class InitGame extends Vue {
   @mp.Mutation addPlayers!: Function;
-  @mp.Mutation setCurrentPlayer!: Function;
   @mp.Mutation setNextPlayer!: Function;
   @mp.Mutation setStatus!: Function;
 
@@ -54,11 +53,7 @@ export default class InitGame extends Vue {
   nbBots: number = 0;
 
   start() {
-    this.addPlayers(this.nbPlayers, true);
-    this.addPlayers(this.nbBots, false);
-    this.setNextPlayer();
-    this.setCurrentPlayer();
-    this.setStatus(GameState.PLAYING);
+    this.addPlayers(this.nbPlayers, this.nbBots);
   }
 
   watchPlayer(nbPlayers: number) {

@@ -31,13 +31,7 @@ const mp = namespace('monopoly');
   },
 })
 export default class PlayingGame extends Vue {
+  @mp.Getter getState!: Function;
   @mp.Getter currentPlayer!: Player;
-  @mp.State dice1!: number;
-  @mp.State dice2!: number;
-
-  created() {
-    console.log('CREATED');
-    console.log(this.currentPlayer);
-  }
 }
 </script>

@@ -1,9 +1,9 @@
 <template>
   <div class="modal" :class="{ 'is-active': isActive() }">
     <div class="modal-background"></div>
-    <div class="modal-card">
+    <div v-if="isActive()" class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">Modal title</p>
+        <p class="modal-card-title">{{ getCaseById(currentPlayer.position) }}</p>
       </header>
       <section class="modal-card-body">
         <!-- Content ... -->
@@ -32,6 +32,8 @@ const mp = namespace('monopoly');
 
 @Component
 export default class Modal extends Vue {
+  @mp.Getter currentPlayer!: Player;
+  @mp.Getter getCaseById!: Function;
   @State(state => state.monopoly.dice1) dice1!: number;
   @State(state => state.monopoly.dice2) dice2!: number;
 

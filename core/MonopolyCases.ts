@@ -1,5 +1,4 @@
 import { Case } from './Case';
-import { Player } from './Player';
 import { Property } from './Property';
 import { Community } from './Community';
 import { IncomeTax } from './IncomeTax';
@@ -12,7 +11,6 @@ import { GoToJail } from './GoToJail';
 import { Park } from './Park';
 import { Company } from './Company';
 import { LuxTax } from './LuxTax';
-import { GameState } from './GameState';
 
 export const MonopolyCases: Case[] = [
   new Start(),
@@ -72,7 +70,7 @@ export const MonopolyCases: Case[] = [
     with4Houses: 625,
     withHotel: 750,
   }),
-  new Company('Compagnie de distribution d\'électricité', 5000),
+  new Company('Compagnie de distribution d\'électricité', 500),
   new Property('Avenue de Neuilly', Colors.PURPLE, 140, 100, 70, {
     rent: 10,
     with1House: 50,
@@ -116,8 +114,8 @@ export const MonopolyCases: Case[] = [
     withHotel: 1000,
   }),
 
-  new Park(),
- 
+  new Park(), 
+
   new Property('Avenue de Matignon', Colors.RED, 220, 100, 100, {
     rent: 18,
     with1House: 90,
@@ -152,7 +150,7 @@ export const MonopolyCases: Case[] = [
     with4Houses: 975,
     withHotel: 1150,
   }),
-  new Company('Compagnie de distribution des eaux', 5000),
+  new Company('Compagnie de distribution des eaux', 500),
   new Property('Rue Lafayette', Colors.YELLOW, 260, 150, 130, {
     rent: 22,
     with1House: 10,
@@ -209,56 +207,3 @@ export const MonopolyCases: Case[] = [
     withHotel: 2000,
   }),
 ]
-
-/*
-const players: Player[] = [
-  new Player('Joueur', false),
-  new Player('bot1', true),
-]
-*/
-
-class Monopoly {
-  private status: GameState;
-  private cases: Case[];
-  private players: Player[];
-  private nextPlayer: number;
-
-  constructor(cases: Case[]) {
-    this.status = GameState.INIT;
-    this.cases = cases;
-    this.players = [];
-    this.nextPlayer = -1;
-  }
-
-  getStatus() {
-    return this.status;
-  }
-
-  setStatus(status: GameState) {
-    this.status = status;
-  }
-
-  setNextPlayer(): void {
-    if(this.nextPlayer >= this.players.length) {
-      this.nextPlayer = 0;
-    } else {
-      this.nextPlayer++;      
-    } 
-    console.log('setNextPlayer', this.nextPlayer);
-  }
-
-  getPlayer(): Player {
-    console.log('getPlayer', this.nextPlayer, this.players.length);
-    return this.players[this.nextPlayer];
-  }
-
-  //setPlayers(players: Player[]) {
-  //  this.players = players;
-  //}
-
-  getCase(caseIndex: number): Case {
-    return this.cases[caseIndex];
-  }
-}
-
-//export const Game = new Monopoly(cases);

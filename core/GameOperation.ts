@@ -1,0 +1,1 @@
+export type GameOperation = boolean | number | null; 

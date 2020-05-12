@@ -19,6 +19,8 @@ import { namespace } from 'vuex-class'
 import { GameState } from '@/core/GameState';
 import InitGame from '@/components/controls/InitGame.vue';
 import PlayingGame from '@/components/controls/PlayingGame.vue';
+import MonopolyInitState from '../core/MonopolyInitState';
+import MonopolyFinishedState from '../core/MonopolyFinishedState';
 
 const mp = namespace('monopoly');
 
@@ -29,18 +31,18 @@ const mp = namespace('monopoly');
   },
 })
 export default class Control extends Vue {
-  @mp.Getter getStatut!: Function;
+  @mp.Getter getState!: Function;
 
   isInit() {
-    return this.getStatut() === GameState.INIT;
-  }
-
-  isPlaying() {
-    return this.getStatut() === GameState.PLAYING;
+    return this.getState() instanceof MonopolyInitState;
   }
 
   isFinished() {
-    return this.getStatut() === GameState.END;
+    return this.getState() instanceof MonopolyFinishedState;
+  }
+
+  isPlaying() {
+    return !this.isInit() && !this.isFinished() ;
   }
 }
 </script>
